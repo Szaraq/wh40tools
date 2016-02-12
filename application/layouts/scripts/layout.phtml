@@ -1,0 +1,37 @@
+<?php echo $this->doctype() ?>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?php echo $this->headLink()->appendStylesheet($this->baseUrl('/css/themes/wh40k.min.css')) ?>
+        <?php echo $this->headLink()->appendStylesheet($this->baseUrl('/css/themes/jquery.mobile.icons.min.css')) ?>
+        <?php echo $this->headLink()->appendStylesheet('http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css') ?>
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <?php echo $this->headLink()->appendStylesheet($this->baseUrl('/css/my_style.css')) ?>
+        <title>Warhammer 40k Tools</title>
+    </head>
+    <body>
+        <div id="background">
+            <div id="banner_div">
+                <img id="banner" src="<?php echo $this->baseUrl('/images/banner.jpg'); ?>"/>
+            </div>
+            <div id="menuWrapper">
+                <!-- Header i Navbar -->
+                <div data-role="header" style="overflow: hidden; padding: 0px 0px 0px 0px !important">
+                    <h1>Warhammer 40k Tools</h1>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#" data-icon="grid">Summary</a></li>
+                            <li><a href="#" data-icon="star" class="ui-btn-active">Favs</a></li>
+                            <li><a href="#" data-icon="gear">Setup</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End Header i Navbar -->
+                <div id="wrapper">
+                    <?php echo $this->layout()->content; ?>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

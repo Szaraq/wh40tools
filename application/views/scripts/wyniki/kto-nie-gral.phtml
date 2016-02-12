@@ -1,0 +1,22 @@
+<div data-role="page" id="ppup_inner" class="ui-body ui-body-b" data-form="ui-body-b" data-theme="b">
+    <table data-role="table" data-mode="reflow" class="ui-responsive table-stroke" style="width: 80%; margin: auto">
+        <thead>
+            <tr>
+                <th style="text-align: right; border-color: white;">Gracz 1</th>
+                <th style="border-color: white;"></th>
+                <th style="text-align: left; border-color: white;">Gracz 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->gry as $k=>$g): ?>
+            <?php foreach($g as $g2): ?>
+            <tr>
+                <td style="text-align: right; border-color: white;"><?php echo $k; ?></td>
+                <td style="text-align: center; border-color: white;">vs.</td>
+                <td style="text-align: left; border-color: white;"><?php echo $g2; ?></td>
+            </tr>
+            <?php endforeach; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

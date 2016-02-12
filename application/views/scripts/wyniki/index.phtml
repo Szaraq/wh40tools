@@ -1,9 +1,6 @@
 <div data-role="popup" id="popupKtoNieGral" data-overlay-theme="b" data-theme="a" data-tolerance="15,15" class="ui-content">
     <iframe class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="<?php echo $this->url(array('action'=>'kto-nie-gral', 'controller' => 'wyniki')); ?>" seamless="" height="298" width="497"></iframe>
 </div>
-<div data-role="popup" id="popupDetails" data-overlay-theme="b" data-theme="b" data-tolerance="15,15" class="ui-content">
-    <iframe id="iframe_gry" class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="<?php echo $this->url(array('action'=>'details', 'controller' => 'wyniki')); ?>" seamless="" height="298" width="497"></iframe>
-</div>
 <?php
     $count = sizeof($this->potyczki);
     $miejsca_color = array( "#fff9e5", "#f2f2f2", "#f8ecec" );
@@ -53,7 +50,10 @@
         <td style="text-align: center; width: 100px; <?php if($p->wynik1 > $p->wynik2) { echo 'font-weight: bold;'; } ?>"><?php echo $p->wynik1; ?></td>
         <td style="text-align: center; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->wynik2; ?></td>
         <td style="font-weight: bold; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->gracz2; ?></td>
-        <td style="width: 70px"><a class="details" href="#popupDetails"  id="<?php echo $p->id; ?>" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a></td>
+        <td style="width: 70px"><a class="details" href="<?php echo '#popupDetails' . $p->id; ?>" id="<?php echo $p->id; ?>" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a></td>
+        <div data-role="popup" class="ppDetails" id="<?php echo 'popupDetails' . $p->id; ?>" data-overlay-theme="b" data-theme="b" data-tolerance="15,15" class="ui-content">
+            <iframe id="iframe_gry" class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="<?php echo $this->url(array('action'=>'details', 'controller' => 'wyniki', 'id' => $p->id)); ?>" seamless="" height="298" width="497"></iframe>
+        </div>
     </tr>
     <?php endforeach; ?>
 <?php endforeach; ?>
@@ -62,14 +62,5 @@
 <br/>
 
 <a href="#popupKtoNieGral" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Kto nie grał?</a>
-<a href="#popupDetails" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Kto nie grał2?</a>
-<input type="hidden" id="hidden_gry" value='<?php echo $this->url(array('action'=>'details', 'controller' => 'wyniki')); ?>' />
-
 <br/>
 <?php echo $this->form;?>
-
-<script>
-    $('.details').mousedown(function(){
-        $('#iframe_gry').attr('src',$('#hidden_gry').attr('value') + '/id/'+this.id);
-    });
-</script>

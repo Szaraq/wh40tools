@@ -1,0 +1,42 @@
+<style>
+    th, td { border-color: white !important;}
+    td, thead th {text-align: center !important;}
+</style>
+<div data-role="page" id="ppup_inner" class="ui-body ui-body-b" data-form="ui-body-b" data-theme="b">
+    <table data-role="table" data-mode="reflow" class="ui-responsive table-stroke" style="width: 80%; margin: auto">
+        <thead>
+            <th></th>
+            <th>Gracz 1</th>
+            <th>Gracz 2</th>
+        </thead>
+        <tbody>
+            <tr>
+                <th style="width: 100px">Kto grał:</th>
+                <td><?php echo $this->potyczka->gracz1; ?></td>
+                <td><?php echo $this->potyczka->gracz2; ?></td>
+            </tr>
+            <tr>
+                <th>Armie:</th>
+                <td><?php echo $this->potyczka->armia1; ?></td>
+                <td><?php echo $this->potyczka->armia2; ?></td>
+            </tr>
+            <tr>
+                <th>Wynik</th>
+                <td><?php echo $this->potyczka->wynik1; ?></td>
+                <td><?php echo $this->potyczka->wynik2; ?></td>
+            </tr>
+            <tr>
+                <th>Misja:</th>
+                <td colspan="2"><?php echo $this->potyczka->misja; ?></td>
+            </tr>
+            <tr>
+                <th>Data:</th>
+                <td colspan="2"><?php echo $this->potyczka->data; ?></td>
+            </tr>
+            <tr>
+                <th>Uwagi:</th>
+                <td colspan="2" style="text-align: left !important"><?php echo $this->potyczka->uwagi; ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

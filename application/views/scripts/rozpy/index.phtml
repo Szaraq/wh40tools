@@ -1,4 +1,26 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Rozpy</b> and script/action name <b>index</b></p>
-</div>
+<style>
+    td, thead th { text-align: center !important }
+</style>
+<table data-role="table" data-mode="reflow" class="ui-responsive table-stroke" style="width: 500px; margin: auto">
+    <thead>
+        <tr>
+            <th style="text-align: left !important">Gracz</th>
+            <th>HTML</th>
+            <th>BattleScribe</th>
+        </tr>
+    </thead>
+    <tbody>
+<?php foreach($this->gracze as $g): 
+        $gracz = $g->ksywa;
+        $path = 'upload/' . $gracz;
+    ?>
+        <tr>
+            <th><?php echo $gracz; ?></th>
+            <td><?php if(!file_exists($path . '.html')) { echo 'Brak pliku'; } else { echo '<a href="/' . $path . '.html" target="_blank">HTML</a>'; } ?></td>
+            <td><?php if(!file_exists($path . '.rosz')) { echo 'Brak pliku'; } else { echo '<a href="/' . $path . '.rosz" target="_blank">BattleScribe</a>'; } ?></td>
+        </tr>
+<?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php echo $this->form;

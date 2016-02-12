@@ -1,0 +1,18 @@
+<?php echo $this->doctype() ?>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?php echo $this->headLink()->appendStylesheet($this->baseUrl('/css/themes/wh40k.min.css')) ?>
+        <?php echo $this->headLink()->appendStylesheet($this->baseUrl('/css/themes/jquery.mobile.icons.min.css')) ?>
+        <?php echo $this->headLink()->appendStylesheet('http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css') ?>
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <?php echo $this->headLink()->appendStylesheet($this->baseUrl('/css/my_style.css')) ?>
+        <title>Warhammer 40k Tools</title>
+    </head>
+    <body>
+        
+                <?php echo $this->layout()->content; ?>
+            
+    </body>
+</html>

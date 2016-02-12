@@ -34,22 +34,22 @@ $( document ).on( "pagecreate", function() {
     $( ".ui-popup iframe" )
         .attr( "width", 0 )
         .attr( "height", "auto" );
-    $( "#popupDetails" ).on({
+    $( ".ppDetails" ).on({
         popupbeforeposition: function() {
             var size = scale( 680, 320, 0, 1 ),
                 w = size.width,
                 h = size.height;
-            $( "#popupDetails iframe" )
+            $( ".ppDetails iframe" )
                 .attr( "width", w )
                 .attr( "height", h );
-            $( "#popupDetails iframe" ).contents().find( "#map_canvas" )
+            $( ".ppDetails iframe" ).contents().find( "#map_canvas" )
                 .css( { "width": w, "height" : h } );
         },
         popupafterclose: function() {
-            $( "#popupDetails iframe" )
+            $( ".ppDetails iframe" )
                 .attr( "width", 0 )
                 .attr( "height", 0 );
-            $( "#popupDetails iframe" ).contents().find( "#map_canvas" )
+            $( ".ppDetails iframe" ).contents().find( "#map_canvas" )
                 .css( { "width": 0, "height" : 0 } );
         }
     });
