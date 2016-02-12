@@ -1,4 +1,75 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Wyniki</b> and script/action name <b>index</b></p>
+<div data-role="popup" id="popupKtoNieGral" data-overlay-theme="b" data-theme="a" data-tolerance="15,15" class="ui-content">
+    <iframe class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="<?php echo $this->url(array('action'=>'kto-nie-gral', 'controller' => 'wyniki')); ?>" seamless="" height="298" width="497"></iframe>
 </div>
+<div data-role="popup" id="popupDetails" data-overlay-theme="b" data-theme="b" data-tolerance="15,15" class="ui-content">
+    <iframe id="iframe_gry" class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="<?php echo $this->url(array('action'=>'details', 'controller' => 'wyniki')); ?>" seamless="" height="298" width="497"></iframe>
+</div>
+<?php
+    $count = sizeof($this->potyczki);
+    $miejsca_color = array( "#fff9e5", "#f2f2f2", "#f8ecec" );
+    $color = -1;
+?>
+
+<script src="<?php echo $this->baseUrl('/js/popupDetails.js'); ?>"></script>
+<script src="<?php echo $this->baseUrl('/js/popupKtoNieGral.js'); ?>"></script>
+
+
+<table data-role="table" data-mode="reflow" class="ui-responsive table-stroke" style="width: 500px">
+    <thead>
+        <tr>
+            <th>Gracz</th>
+            <th>Punkty</th>
+            <th>Rozegrane gry</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->wyniki as $k=>$w): ?> 
+        <?php for($i = 2; $i >= 0; $i--) { if($w == $this->podium[$i]) { $color = $miejsca_color[$i]; } } ?>
+        <tr>
+            <th <?php if($color != -1) { echo 'bgcolor="' . $color . '"'; } ?>><?php echo $k ?></th>
+            <td style="text-align: center" <?php if($color != -1) { echo 'bgcolor="' . $color . '"'; } ?>><?php echo $w ?></td>
+            <td style="text-align: center" <?php if($color != -1) { echo 'bgcolor="' . $color . '"'; } ?>><?php echo $this->rozegrane[$k]->count() ?></td>
+        </tr>
+        <?php $color = -1; ?>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<br/>
+
+<table data-role="table" data-mode="reflow" class="ui-responsive table-stroke" style="width: 700px; margin: auto; fixed">
+    <thead>
+        <th style="text-align: right">Gracz 1</th>
+        <th></th>
+        <th></th>
+        <th>Gracz 2</th>
+        <th></th>
+    </thead>
+    <tbody>
+<?php foreach ($this->potyczki as $r): ?>
+        <tr><td colspan="4" style="text-align: center"><b>Runda <?php echo $count--; ?></b></td><td></td></tr>
+    <?php foreach($r as $p): ?>
+    <tr>
+        <td style="text-align: right; <?php if($p->wynik1 > $p->wynik2) { echo 'font-weight: bold;'; } ?>"><?php echo $p->gracz1; ?></td>
+        <td style="text-align: center; width: 100px; <?php if($p->wynik1 > $p->wynik2) { echo 'font-weight: bold;'; } ?>"><?php echo $p->wynik1; ?></td>
+        <td style="text-align: center; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->wynik2; ?></td>
+        <td style="font-weight: bold; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->gracz2; ?></td>
+        <td style="width: 70px"><a class="details" href="#popupDetails"  id="<?php echo $p->id; ?>" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a></td>
+    </tr>
+    <?php endforeach; ?>
+<?php endforeach; ?>
+    </tbody>
+</table>
+<br/>
+
+<a href="#popupKtoNieGral" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Kto nie grał?</a>
+<a href="#popupDetails" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Kto nie grał2?</a>
+<input type="hidden" id="hidden_gry" value='<?php echo $this->url(array('action'=>'details', 'controller' => 'wyniki')); ?>' />
+
+<br/>
+<?php echo $this->form;?>
+
+<script>
+    $('.details').mousedown(function(){
+        $('#iframe_gry').attr('src',$('#hidden_gry').attr('value') + '/id/'+this.id);
+    });
+</script>
