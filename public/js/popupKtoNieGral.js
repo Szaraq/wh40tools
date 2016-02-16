@@ -34,8 +34,6 @@ $( document ).on( "pagecreate", function() {
     $( ".ui-popup iframe" )
         .attr( "width", 0 )
         .attr( "height", "auto" );
-    $( "#popupKtoNieGral iframe" ).contents().find( "#map_canvas" )
-        .css( { "width" : 0, "height" : 0 } );
     $( "#popupKtoNieGral" ).on({
         popupbeforeposition: function() {
             var size = scale( 680, 320, 0, 1 ),
@@ -44,15 +42,12 @@ $( document ).on( "pagecreate", function() {
             $( "#popupKtoNieGral iframe" )
                 .attr( "width", w )
                 .attr( "height", h );
-            $( "#popupKtoNieGral iframe" ).contents().find( "#map_canvas" )
-                .css( { "width": w, "height" : h } );
         },
         popupafterclose: function() {
+        location.reload();
             $( "#popupKtoNieGral iframe" )
                 .attr( "width", 0 )
                 .attr( "height", 0 );
-            $( "#popupKtoNieGral iframe" ).contents().find( "#map_canvas" )
-                .css( { "width": 0, "height" : 0 } );
         }
     });
 });

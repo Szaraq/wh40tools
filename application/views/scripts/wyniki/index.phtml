@@ -68,7 +68,7 @@
         <td style="text-align: center; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->wynik2; ?></td>
         <td style="font-weight: bold; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->gracz2; ?></td>
         <td style="width: 70px;">
-            <a class="details" href="<?php echo '#popupDetails' . $p->id; ?>" id="<?php echo $p->id; ?>" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a>
+            <a href="#" class="details" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a>
         </td>
         <td style="text-align: right;">
             <?php if(!is_null($this->potyczki_moje)): ?>
@@ -88,9 +88,6 @@
             <?php endif; ?>
             <?php endif; ?>
         </td>
-        <div data-role="popup" class="ppDetails" id="<?php echo 'popupDetails' . $p->id; ?>" data-overlay-theme="b" data-theme="b" data-tolerance="15,15" class="ui-content">
-            <iframe id="iframe_gry" class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="<?php echo $this->url(array('action'=>'details', 'controller' => 'wyniki', 'id' => $p->id)); ?>" seamless="" height="298" width="497"></iframe>
-        </div>
     </tr>
     <?php endforeach; ?>
 <?php endforeach; ?>
@@ -119,3 +116,4 @@
 </div>
 <script  src="<?php echo $this->baseUrl('/js/setArmia.js'); ?>"></script>
 <script  src="<?php echo $this->baseUrl('/js/popupDodajWynik.js'); ?>"></script>
+<script src="<?php echo $this->baseUrl('/js/popupDetails2.js'); ?>"></script>
