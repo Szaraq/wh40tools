@@ -17,7 +17,8 @@ class Application_Form_DodajWynik extends Zend_Form
                     'label' => 'Gracz 1',
                     'multioptions' => $options_gracze,
                     'value' => '',
-                    'required' => true
+                    'required' => true,
+                    'validators' => array(new Zend_Validate_NotEmpty())
                 )
                 );
         $this->addElement(
@@ -30,11 +31,15 @@ class Application_Form_DodajWynik extends Zend_Form
                     'required' => true,
                     'validators' => array(
                         new My_Validate_NotEquals('gracz1'),
-                        new My_Validate_PotyczkaNotExistInDatabase()
+                        new My_Validate_PotyczkaNotExistInDatabase(),
+                        new Zend_Validate_NotEmpty()
                     )
                 )
                 );
         $this->gracz2->getValidator("My_Validate_NotEquals")->setMessages(array(My_Validate_NotEquals::EQUALS => 'Gracz1 musi się różnić od Gracza2'));
+        $this->gracz2->getValidator("My_Validate_PotyczkaNotExistInDatabase")->setMessages(array(My_Validate_PotyczkaNotExistInDatabase::EXISTS => 'Taka potyczka już istnieje'));
+        $this->gracz1->getValidator("NotEmpty")->setMessages(array(Zend_Validate_NotEmpty::IS_EMPTY => 'Musisz wybrać gracza'));
+        $this->gracz2->getValidator("NotEmpty")->setMessages(array(Zend_Validate_NotEmpty::IS_EMPTY => 'Musisz wybrać gracza'));
         
         $Armie = new Application_Model_DbTable_Armie();
         $armie = $Armie->fetchAll()->toArray();
@@ -45,7 +50,7 @@ class Application_Form_DodajWynik extends Zend_Form
                 array(
                     'multioptions' => $options_armie,
                     'value' => '',
-                    'required' => true
+                    'required' => false
                 )
                 );
         $this->addElement(
@@ -54,7 +59,7 @@ class Application_Form_DodajWynik extends Zend_Form
                 array(
                     'multioptions' => $options_armie,
                     'value' => '',
-                    'required' => true
+                    'required' => false
                 )
                 );
         
@@ -88,6 +93,8 @@ class Application_Form_DodajWynik extends Zend_Form
                     )
                 )
                 );
+        $this->getElement('wynik1')->setAttrib('onclick', 'this.select();');
+        $this->getElement('wynik2')->setAttrib('onclick', 'this.select();');
         
         $Misje = new Application_Model_DbTable_Misje();
         $misje = $Misje->fetchAll('rodzaj = 1');
@@ -114,10 +121,13 @@ class Application_Form_DodajWynik extends Zend_Form
                     'value' => date('Y-m-d'),
                     'required' => true,
                     'validators' => array(
-                        $mustBeAData
+                        $mustBeAData,
+                        new Zend_Validate_NotEmpty()
                     )
                 )
                 );
+        $this->getElement('data')->getValidator('NotEmpty')->setMessages(array(Zend_Validate_NotEmpty::IS_EMPTY => 'Musisz wpisać datę'));
+        $this->getElement('data')->setAttribs(array('data-role' => 'date', 'data-inline' => 'false'));
         
         $this->addElement(
                 'textarea',
@@ -126,7 +136,8 @@ class Application_Form_DodajWynik extends Zend_Form
                     'label' => 'Punkty',
                     'value' => '',
                     'required' => false,
-                    'placeholder' => 'Tu możesz wpisać swoje różne głupie uwagi'
+                    'placeholder' => 'Tu możesz wpisać swoje różne głupie uwagi',
+                    'filters' => array(new Zend_Filter_StripTags())
                 )
                 );
         

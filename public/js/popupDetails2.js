@@ -10,11 +10,11 @@
         var target = $( this ),
             heightPp = $( window ).height() / 3,
             widthPp = $( window ).width() / 3,
-            short = target.attr( "id" ),
-            closebtn = '<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>',
-            header = '<div data-role="header"><h2>' + 'Szczegóły potyczki' + '</h2></div>',
-            img = '<iframe id="iframe_gry" class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="/wyniki/details/id/145" seamless="" height="' + heightPp + '" width="' + widthPp + '"></iframe>';
-            popup = '<div data-role="popup" id="popup-' + short + '" data-short="' + short +'" class="ppDetails" id="145" data-overlay-theme="b" data-theme="b" data-tolerance="15,15" class="ui-content">';
+            short = target.attr( "details-to-show" ),
+            closebtn = '',//'<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>',
+            header = '<div data-role="header" data-theme="b" style="border-bottom-color: white"><h1>' + 'Szczegóły potyczki' + '</h1></div>',
+            img = '<iframe style="border-style: none" id="iframe_gry" class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="/wyniki/details/id/' + short + '" seamless="" height="' + heightPp + '" width="' + widthPp + '"></iframe>';
+            popup = '<div data-role="popup" id="popup-' + short + '" data-short="' + short +'" class="ppDetails" data-overlay-theme="b" data-theme="b" data-tolerance="15,15" class="ui-content">';
         // Create the popup.
         $( header )
             .appendTo( $( popup )
@@ -25,7 +25,7 @@
             .after( img );
         // Wait with opening the popup until the popup image has been loaded in the DOM.
         // This ensures the popup gets the correct size and position
-        $( ".photo", "#popup-" + short ).load(function() {
+        $( "#popup-" + short).load(function() {
             // Open the popup
             $( "#popup-" + short ).popup( "open" );
             // Clear the fallback
@@ -34,7 +34,7 @@
         // Fallback in case the browser doesn't fire a load event
         var fallback = setTimeout(function() {
             $( "#popup-" + short ).popup( "open" );
-        }, 2000);
+        }, 100);
     });
     // Set a max-height to make large images shrink to fit the screen.
     $( document ).on( "popupbeforeposition", ".ui-popup", function() {

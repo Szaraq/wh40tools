@@ -12,6 +12,9 @@ $( document ).on( "pagecreate", function() {
             var maxWidth = $( window ).width() / 3 + "px";
             $( "#popupDodajWynik form" ).css( "max-height", maxHeight );
             $( "#popupDodajWynik form" ).css( "max-width", maxWidth);
+        },
+        popupafterclose: function() {
+            location.reload();
         }
     });
 });

@@ -22,6 +22,9 @@ and open the template in the editor.
 #menuWrapper, #banner_div {
     margin: auto;
     width: 60%;
+}
+
+#menuWrapper {
     margin-bottom: 80px;
 }
 
@@ -70,4 +73,8 @@ hr {
 ul.errors {
     color: #c03c2f;
     list-style-type: none;
+}
+
+.ui-page-theme-a {
+    background-color: white;
 }

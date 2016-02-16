@@ -68,7 +68,7 @@
         <td style="text-align: center; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->wynik2; ?></td>
         <td style="font-weight: bold; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->gracz2; ?></td>
         <td style="width: 70px;">
-            <a href="#" class="details" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a>
+            <a details-to-show="<?php echo $p->id?>" href="#" class="details" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a>
         </td>
         <td style="text-align: right;">
             <?php if(!is_null($this->potyczki_moje)): ?>
@@ -106,7 +106,7 @@
 <input type="hidden" id="deleteAddress" value="<?php echo $this->url(array('action' => 'delete', 'controller' => 'wyniki')); ?>" />
 <input type="hidden" id="thisAddress" value="<?php echo $this->url(array('action' => 'index', 'controller' => 'wyniki', 'year' => '')); ?>" />
 <br/>
-<div data-role="popup" id="popupDodajWynik" data-theme="a" class="ui-corner-all" style="background-color: rgb(249, 249, 249);">
+<div data-role="popup" data-overlay-theme="b" id="popupDodajWynik" data-theme="a" class="ui-corner-all" style="background-color: rgb(249, 249, 249);">
     <div data-role="header" data-theme="b" style="border-color: white">
         <h1>Dodawanie wyniku</h1>
     </div>
