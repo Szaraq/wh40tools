@@ -19,6 +19,9 @@ class RozpyController extends Zend_Controller_Action
 
     public function uploadAction()
     {
+        /*$this->indexAction();
+        $this->_helper->viewRenderer('index');*/
+        $this->view->gracze = My_Functions::getGracze();
         $form = new Application_Form_WrzucRozpe();
         $this->view->form = $form;
         
@@ -28,6 +31,7 @@ class RozpyController extends Zend_Controller_Action
                 $extension = pathinfo($upload->getFileInfo()['rozpa']['name'], PATHINFO_EXTENSION);
                 $upload->addFilter('Rename', 'upload\\' . $form->gracz->getValue() . '.' . $extension, true);
                 $upload->receive();
+                if(!My_CookieHelper::getInstance()->hasCookie('ksywa')) { My_CookieHelper::getInstance()->setCookie('ksywa', $form->gracz->getValue()); }
                 return $this->_helper->redirector('index');
             }
         }

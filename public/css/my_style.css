@@ -8,21 +8,29 @@ and open the template in the editor.
     Author     : m.osik2
 */
 
-#wrapper {
+#menuWrapper {
     margin-top: 10px;
     background-color: rgb(249, 249, 249);
-    padding: 0px 10px 10px 10px;
+    //padding: 0px 10px 10px 10px;
     border-style: solid;
     border-width: 2px;
+    //border-color: #c03c2f;
+    //border-color: #353535;
+    border-color: #616161
 }
 
-#wrapper, #banner_div {
+#menuWrapper, #banner_div {
     margin: auto;
     width: 60%;
+    margin-bottom: 80px;
 }
 
 #banner {
     width: 100%;
+}
+
+#wrapper {
+    padding: 30px 10px 30px 10px;
 }
 
 #background {
@@ -30,6 +38,7 @@ and open the template in the editor.
     height: 100%;
     margin-top: 0px;
     //background-image: url("/images/tla/tlo1.jpg");
+    background-color: white;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative
@@ -42,4 +51,23 @@ and open the template in the editor.
 iframe {
     border-color: red !important;
     border-radius: 10px
+}
+
+.ui-btn.my-tooltip-btn,
+.ui-btn.my-tooltip-btn:hover,
+.ui-btn.my-tooltip-btn:active {
+    background: none;
+    border: 0;
+    height: 10px;
+    width: 10px
+}
+
+hr {
+    margin-top: 50px;
+    margin-bottom: 20px
+}
+
+ul.errors {
+    color: #c03c2f;
+    list-style-type: none;
 }

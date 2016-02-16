@@ -1,1 +1,32 @@
+<style>
+    td, thead th { text-align: center !important }
+</style>
+<table data-role="table" data-mode="reflow" class="ui-responsive table-stroke" style="width: 500px; margin: auto">
+    <thead>
+        <tr>
+            <th style="text-align: left !important">Gracz</th>
+            <th>HTML</th>
+            <th>BattleScribe</th>
+        <?php if(My_Functions::existsRozpaPoprzedniaRunda()): ?>
+            <th>Poprzednia</th>
+        <?php endif; ?>
+        </tr>
+    </thead>
+    <tbody>
+<?php foreach($this->gracze as $g): 
+        $gracz = $g->ksywa;
+        $path = 'upload/' . $gracz;
+    ?>
+        <tr>
+            <th><?php echo $gracz; ?></th>
+            <td><?php if(!file_exists($path . '.html')) { echo 'Brak pliku'; } else { echo '<a href="/' . $path . '.html" target="_blank">HTML</a>'; } ?></td>
+            <td><?php if(!file_exists($path . '.rosz')) { echo 'Brak pliku'; } else { echo '<a href="/' . $path . '.rosz" target="_blank">BattleScribe</a>'; } ?></td>
+        <?php if(My_Functions::existsRozpaPoprzedniaRunda()): ?>
+            <td><?php if(!file_exists($path . '2.html')) { echo 'Brak pliku'; } else { echo '<a href="/' . $path . '.html" target="_blank">HTML</a>'; } ?></td>
+        <?php endif; ?>
+        </tr>
+<?php endforeach; ?>
+    </tbody>
+</table>
+<hr />
 <?php echo $this->form;

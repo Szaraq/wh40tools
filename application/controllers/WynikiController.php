@@ -10,7 +10,9 @@ class WynikiController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $year = 2016;
+        $year = $this->getRequest()->getParam('year');
+        if(is_null($year)) { $year = date('Y'); }
+        $this->view->year = $year;
         $this->view->form = new Application_Form_DodajWynik();
         $rundy = My_Functions::getRundyForYear($year);
         
@@ -37,13 +39,34 @@ class WynikiController extends Zend_Controller_Action
         
         $this->view->podium = $podium;
         
-        /* COOKIE - TODO */
-        /*$request = new Zend_Controller_Request_Http();
-        echo $request->getCookie('test');*/
-        /* /COOKIE */
+        $this->view->potyczki_moje = $this->getMojePotyczki();
+        
+        $Runda = new Application_Model_DbTable_Rundy();
+        $this->view->lata = $Runda->fetchAll($Runda->select()
+                ->distinct()
+                ->from($Runda->info('name'), 'Year(data_od)')
+                ->order('data_od DESC')
+                ->group('Year(data_od)'))
+                ->toArray();
     }
-    
-    private function obliczWyniki($year = -1) {
+
+    private function getMojePotyczki()
+    {
+        My_CookieHelper::getInstance()->setCookie('id', '1');
+        if(My_CookieHelper::getInstance()->hasCookie('id')) {
+            $cookieId = My_CookieHelper::getInstance()->getCookie('id');
+            $Potyczka = new Application_Model_DbTable_Potyczka();
+            $potyczki_moje = $Potyczka->fetchAll($Potyczka->select()->from($Potyczka->info('name'), array('id'))->where('cookie = ?', $cookieId))->toArray();
+            $out = array();
+            foreach($potyczki_moje as $pm) { $out[] = $pm['id']; }
+            return $out;
+        } else {
+            return null;
+        }
+    }
+
+    private function obliczWyniki($year = -1)
+    {
         if($year == -1) { $year = date("Y"); }
         $gracze = My_Functions::getGracze();
         $out = array();
@@ -52,8 +75,9 @@ class WynikiController extends Zend_Controller_Action
         }
         return $out;
     }
-    
-    private function obliczWynikDlaGracza($year = -1, $gracz) {
+
+    private function obliczWynikDlaGracza($year, $gracz)
+    {
         $rundy = My_Functions::getRundyForYear($year);
         $runda_min = $rundy->getRow($rundy->count()-1)->data_od;
         $runda_max = $rundy->getRow(0)->data_do;
@@ -85,12 +109,14 @@ class WynikiController extends Zend_Controller_Action
         
         return $out;
     }
-    
-    private function obliczRozegraneGry() {
+
+    private function obliczRozegraneGry()
+    {
         return $this->getRozegraneGry();
     }
-    
-    private function getRozegraneGry() {
+
+    private function getRozegraneGry()
+    {
         $Runda = new Application_Model_DbTable_Rundy();
         $runda = $Runda->fetchRow('data_do IS NULL');
         $gracze = My_Functions::getGracze();
@@ -107,13 +133,14 @@ class WynikiController extends Zend_Controller_Action
         
         return $out;
     }
-    
+
     public function uploadAction()
     {
         $this->indexAction();
         $this->_helper->viewRenderer('index');
         $form = new Application_Form_DodajWynik();
         $this->view->form = $form;
+        $cookieHelper = My_CookieHelper::getInstance();
         
         if($this->getRequest()->isPost()) {
             if($form->isValid($this->getRequest()->getPost())) {
@@ -123,10 +150,19 @@ class WynikiController extends Zend_Controller_Action
                 foreach($values as $k => $v) {
                     $data[$k] = $v;
                 }
+                if($cookieHelper->hasCookie('id')) {
+                    $data['cookie'] = $cookieHelper->getCookie('id');
+                } else {
+                    $id = $cookieHelper->generateId();
+                    $cookieHelper->setCookie('id', $id);
+                    $data['cookie'] = $id;
+                }
                 $Potyczka->createRow($data)->save();
                 return $this->_helper->redirector('index');
             }
         }
+        
+        $this->view->form = $form;
     }
 
     public function ktoNieGralAction()
@@ -134,8 +170,9 @@ class WynikiController extends Zend_Controller_Action
         $this->_helper->layout()->setLayout('popup_layout');
         $this->view->gry = $this->getKtoNieGral();
     }
-    
-    private function getKtoNieGral() {
+
+    private function getKtoNieGral()
+    {
         $gracze_in = My_Functions::getGracze()->toArray();
         
         /* Wyrzucam z wyniku armię i data_do */
@@ -183,7 +220,17 @@ class WynikiController extends Zend_Controller_Action
         $this->view->potyczka = $potyczka;
     }
 
+    public function deleteAction()
+    {
+        $Potyczka = new Application_Model_DbTable_Potyczka();
+        $Potyczka->fetchRow($Potyczka->select()->where('id = ?', $this->getParam('id')))->delete();
+        return $this->_helper->redirector('index');
+    }
+
+
 }
+
+
 
 
 

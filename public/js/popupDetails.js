@@ -36,7 +36,7 @@ $( document ).on( "pagecreate", function() {
         .attr( "height", "auto" );
     $( ".ppDetails" ).on({
         popupbeforeposition: function() {
-            var size = scale( 680, 320, 0, 1 ),
+            var size = scale( 680, 420, 0, 1 ),
                 w = size.width,
                 h = size.height;
             $( ".ppDetails iframe" )

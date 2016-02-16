@@ -87,4 +87,12 @@ class My_Functions {
         asort($array);
         return array_slice(array_reverse($array, true),0,$n, true);
     }
+    
+    public static function existsRozpaPoprzedniaRunda() {
+        $gracze = self::getGracze();
+        foreach($gracze as $g) {
+            if(file_exists('upload/' . $g->ksywa . '2.html')) { return true; }
+        }
+        return false;
+    }
 }

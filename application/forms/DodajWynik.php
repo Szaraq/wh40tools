@@ -8,6 +8,7 @@ class Application_Form_DodajWynik extends Zend_Form
         $this->setMethod('post');
         $gracze = My_Functions::getGracze()->toArray();
         $options_gracze = My_Functions::get2d($gracze, 'ksywa');
+        $this->setName('dodawanie');
         
         $this->addElement(
                 'select',
@@ -28,7 +29,7 @@ class Application_Form_DodajWynik extends Zend_Form
                     'value' => '',
                     'required' => true,
                     'validators' => array(
-                        new My_Validate_NotEquals('gracz2'),
+                        new My_Validate_NotEquals('gracz1'),
                         new My_Validate_PotyczkaNotExistInDatabase()
                     )
                 )
@@ -57,8 +58,8 @@ class Application_Form_DodajWynik extends Zend_Form
                 )
                 );
         
-        $greaterThanZero = new Zend_Validate_GreaterThan(0);
-        $greaterThanZero->setMessages(array(Zend_Validate_GreaterThan::NOT_GREATER => 'Musi być większe od zera'));
+        $greaterThanZero = new Zend_Validate_GreaterThan(-1);
+        $greaterThanZero->setMessages(array(Zend_Validate_GreaterThan::NOT_GREATER => 'Musi być większe lub równe zero'));
         $mustBeAnInteger = new Zend_Validate_Int();
         $mustBeAnInteger->setMessages(array(Zend_Validate_Int::NOT_INT => 'Musi być liczbą całkowitą'));
         $this->addElement(
@@ -136,6 +137,48 @@ class Application_Form_DodajWynik extends Zend_Form
                     'label' => 'Wyślij'
                 )
                 );
+        
+        $this->addDisplayGroup(array($this->gracz1, $this->gracz2), 'gracze')
+                ->addDecorators(array(array(array('div' => 'HtmlTag'), array('tag' => 'div', 'class' => 'ui-grid-b'))))
+                ->removeDecorator('DtDdWrapper');
+        $this->addDisplayGroup(array($this->armia1, $this->armia2), 'armie')
+                ->addDecorators(array(array(array('div' => 'HtmlTag'), array('tag' => 'div', 'class' => 'ui-grid-b'))))
+                ->removeDecorator('DtDdWrapper');
+        $this->addDisplayGroup(array($this->wynik1, $this->wynik2), 'wyniki')
+                ->addDecorators(array(array(array('div' => 'HtmlTag'), array('tag' => 'div', 'class' => 'ui-grid-b'))))
+                ->removeDecorator('DtDdWrapper');
+        $this->addDisplayGroup(array($this->misja), 'misja_group')->removeDecorator('DtDdWrapper');
+        $this->addDisplayGroup(array($this->data), 'data_group')->removeDecorator('DtDdWrapper');
+        $this->addDisplayGroup(array($this->uwagi), 'uwagi_group')->removeDecorator('DtDdWrapper');
+        $this->addDisplayGroup(array($this->wyslij), 'submit')->removeDecorator('DtDdWrapper');
+        
+        foreach($this->getDisplayGroups() as $group) {
+            $group->removeDecorator('DtDdWrapper');
+            $group->removeDecorator('HtmlTag');
+        }
+        $this->getElement('armia1')->removeDecorator('Label');
+        $this->getElement('armia2')->removeDecorator('Label');
+        //$this->getElement('wyslij')->removeDecorator('DtDdWrapper');
+        
+        $this->setDecorators(array(
+            'FormElements',
+            'Form',
+            array(array('div' => 'HtmlTag'), array('tag' => 'div', 'style' => 'width: 60%; margin: auto')),
+        ));
+        $this->getDecorator('Form')->setOption('data-ajax', 'false');
+        
+        $this->rozmiescKoloSiebie($this->gracz1, $this->gracz2);
+        $this->rozmiescKoloSiebie($this->armia1, $this->armia2);
+        $this->rozmiescKoloSiebie($this->wynik1, $this->wynik2);
+    }
+    
+    private function rozmiescKoloSiebie($element1, $element2) {
+        $element1->addDecorators(array(
+                array(array('div' => 'HtmlTag'), array('tag' => 'div', 'class' => 'ui-block-a', 'style' => 'width: 50%'))
+                ));
+        $element2->addDecorators(array(
+                array(array('div' => 'HtmlTag'), array('tag' => 'div', 'class' => 'ui-block-b', 'style' => 'float: right; width: 50%'))
+                ));
     }
 
 
