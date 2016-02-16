@@ -18,7 +18,7 @@ class Application_Form_WrzucRozpe extends Zend_Form
                 'select',
                 'gracz',
                 array(
-                    'label' => 'Wybierz gracza:',
+                    'label' => '1. Wybierz gracza:',
                     'multioptions' => $options,
                     'value' => $ksywa,
                     'required' => true,
@@ -31,7 +31,7 @@ class Application_Form_WrzucRozpe extends Zend_Form
                 'file',
                 'rozpa',
                 array(
-                    'label' => 'Wybierz plik:',
+                    'label' => '2. Wybierz plik:',
                     'destination' => 'upload',
                     'required' => true,
                     'validators' => array(
@@ -67,7 +67,7 @@ class Application_Form_WrzucRozpe extends Zend_Form
         $this->addDisplayGroup(array($this->gracz, $this->rozpa), 'wybor');
         $this->addDisplayGroup(array($this->wyslij), 'sub');
         
-        $this->getDisplayGroup('wybor')->addDecorators(array(
+        /*$this->getDisplayGroup('wybor')->addDecorators(array(
                 array(array('div' => 'HtmlTag'), array('tag' => 'div', 'class' => 'ui-grid-b'))
                 ));
         $this->getElement('gracz')->addDecorators(array(
@@ -78,7 +78,7 @@ class Application_Form_WrzucRozpe extends Zend_Form
                 ));
         
         $this->getDisplayGroup('wybor')->removeDecorator('DtDdWrapper');
-        $this->getDisplayGroup('sub')->removeDecorator('DtDdWrapper');
+        $this->getDisplayGroup('sub')->removeDecorator('DtDdWrapper');*/
         $this->getElement('wyslij')->setDecorators(array('ViewHelper'));
         $this->getElement('wyslij')->addDecorators(array(array(array('div' => 'HtmlTag'), array('tag' => 'div', 'style' => 'width: 50%; margin: auto'))));
         
