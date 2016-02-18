@@ -126,8 +126,9 @@ class Application_Form_DodajWynik extends Zend_Form
                     )
                 )
                 );
-        $this->getElement('data')->getValidator('NotEmpty')->setMessages(array(Zend_Validate_NotEmpty::IS_EMPTY => 'Musisz wpisać datę'));
-        $this->getElement('data')->setAttribs(array('data-role' => 'date', 'data-inline' => 'false'));
+        $this->getElement('data')
+                ->setAttribs(array('data-role' => 'date', 'data-inline' => 'false'))
+                ->getValidator('NotEmpty')->setMessages(array(Zend_Validate_NotEmpty::IS_EMPTY => 'Musisz wpisać datę'));
         
         $this->addElement(
                 'textarea',
@@ -148,6 +149,7 @@ class Application_Form_DodajWynik extends Zend_Form
                     'label' => 'Wyślij'
                 )
                 );
+        $this->getElement('wyslij')->setAttrib('data-theme', 'c');
         
         $this->addDisplayGroup(array($this->gracz1, $this->gracz2), 'gracze')
                 ->addDecorators(array(array(array('div' => 'HtmlTag'), array('tag' => 'div', 'class' => 'ui-grid-b'))))

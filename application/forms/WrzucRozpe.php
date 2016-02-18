@@ -56,7 +56,9 @@ class Application_Form_WrzucRozpe extends Zend_Form
                     'label' => 'Wyślij'
                 )
                 );
-        
+        $this->getElement('wyslij')
+                ->setAttrib('data-theme', 'c')
+                ->setAttrib('class', 'ui-icon-check ui-btn-icon-left ' . $this->getElement('wyslij')->getAttrib('class'));
         
         $this->setDecorators(array(
             'FormElements',

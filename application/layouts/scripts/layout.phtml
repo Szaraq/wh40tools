@@ -10,7 +10,13 @@
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <?php echo $this->headLink()->appendStylesheet($this->baseUrl('/css/my_style.css')) ?>
         <link rel="icon" type="image/png" href="<?php echo $this->baseUrl('/images/icons/favicon4.png'); ?>"/>
+        <script src="<?php echo $this->baseUrl('/js/submitFormat.js'); ?>"></script>
         <title>Warhammer 40k Tools</title>
+        
+        <!-- datepicker -->
+        <link rel="stylesheet" href="<?php echo $this->baseUrl('js/DatePicker/jquery.mobile.datepicker.css') ?>">
+        <script src="<?php echo $this->baseUrl('js/DatePicker/jquery.ui.datepicker.js') ?>"></script>
+        <script id="mobile-datepicker" src="<?php echo $this->baseUrl('js/DatePicker/jquery.mobile.datepicker.js') ?>"></script>
     </head>
     <body>
         <div id="background">

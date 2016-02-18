@@ -10,8 +10,8 @@
 <script src="<?php echo $this->baseUrl('/js/popupDetails.js'); ?>"></script>
 <script src="<?php echo $this->baseUrl('/js/popupKtoNieGral.js'); ?>"></script>
 
-<div style="width: 10%">
-    <select id="rok" name="rok">
+<div style="width: 150px">
+    <select id="rok" name="rok" class="ui-icon-calendar ui-btn-icon-left">
         <?php foreach ($this->lata as $l): ?>
             <option <?php if($this->year == $l['Year(data_od)']) { echo 'selected'; } ?> ><?php echo $l['Year(data_od)'] ?></option>
         <?php endforeach; ?>
@@ -38,7 +38,7 @@
         <?php endforeach; ?>
     </tbody>
 </table>
-<a href="#popupKtoNieGral" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Kto nie grał?</a>
+<a href="#popupKtoNieGral" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-icon-left ui-icon-info" data-transition="pop">Kto nie grał?</a>
 <hr style="margin-top: 10px" />
 
 <div style="float: right; margin-right: 30%; z-index: 1">
