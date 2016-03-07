@@ -10,10 +10,11 @@
         var target = $( this ),
             heightPp = $( window ).height() / 3,
             widthPp = $( window ).width() / 3,
+            detailsAddr = $( "#detailsAddress").val();
             short = target.attr( "details-to-show" ),
             closebtn = '',//'<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>',
             header = '<div data-role="header" data-theme="b" style="border-bottom-color: white"><h1>' + 'Szczegóły potyczki' + '</h1></div>',
-            img = '<iframe style="border-style: none" id="iframe_gry" class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="/wyniki/details/id/' + short + '" seamless="" height="' + heightPp + '" width="' + widthPp + '"></iframe>';
+            img = '<iframe style="border-style: none" id="iframe_gry" class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="' + detailsAddr + short + '" seamless="" height="' + heightPp + '" width="' + widthPp + '"></iframe>';
             popup = '<div data-role="popup" id="popup-' + short + '" data-short="' + short +'" class="ppDetails" data-overlay-theme="b" data-theme="b" data-tolerance="15,15" class="ui-content">';
         // Create the popup.
         $( header )

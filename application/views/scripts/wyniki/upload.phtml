@@ -10,8 +10,8 @@
 <script src="<?php echo $this->baseUrl('/js/popupDetails.js'); ?>"></script>
 <script src="<?php echo $this->baseUrl('/js/popupKtoNieGral.js'); ?>"></script>
 
-<div style="width: 10%">
-    <select id="rok" name="rok">
+<div style="width: 150px">
+    <select id="rok" name="rok" class="ui-icon-calendar ui-btn-icon-left">
         <?php foreach ($this->lata as $l): ?>
             <option <?php if($this->year == $l['Year(data_od)']) { echo 'selected'; } ?> ><?php echo $l['Year(data_od)'] ?></option>
         <?php endforeach; ?>
@@ -38,7 +38,7 @@
         <?php endforeach; ?>
     </tbody>
 </table>
-<a href="#popupKtoNieGral" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Kto nie grał?</a>
+<a href="#popupKtoNieGral" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-icon-left ui-icon-info" data-transition="pop">Kto nie grał?</a>
 <hr style="margin-top: 10px" />
 
 <div style="float: right; margin-right: 30%; z-index: 1">
@@ -68,7 +68,7 @@
         <td style="text-align: center; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->wynik2; ?></td>
         <td style="font-weight: bold; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->gracz2; ?></td>
         <td style="width: 70px;">
-            <a class="details" href="<?php echo '#popupDetails' . $p->id; ?>" id="<?php echo $p->id; ?>" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a>
+            <a details-to-show="<?php echo $p->id?>" href="#" class="details" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a>
         </td>
         <td style="text-align: right;">
             <?php if(!is_null($this->potyczki_moje)): ?>
@@ -88,9 +88,6 @@
             <?php endif; ?>
             <?php endif; ?>
         </td>
-        <div data-role="popup" class="ppDetails" id="<?php echo 'popupDetails' . $p->id; ?>" data-overlay-theme="b" data-theme="b" data-tolerance="15,15" class="ui-content">
-            <iframe id="iframe_gry" class="ui-body ui-body-b ui-corner-all" data-form="ui-body-b" data-theme="b" src="<?php echo $this->url(array('action'=>'details', 'controller' => 'wyniki', 'id' => $p->id)); ?>" seamless="" height="298" width="497"></iframe>
-        </div>
     </tr>
     <?php endforeach; ?>
 <?php endforeach; ?>
@@ -108,8 +105,9 @@
 </script>
 <input type="hidden" id="deleteAddress" value="<?php echo $this->url(array('action' => 'delete', 'controller' => 'wyniki')); ?>" />
 <input type="hidden" id="thisAddress" value="<?php echo $this->url(array('action' => 'index', 'controller' => 'wyniki', 'year' => '')); ?>" />
+<input type="hidden" id="detailsAddress" value="<?php echo $this->url(array('action' => 'details', 'controller' => 'wyniki', 'id' => '')); ?>" />
 <br/>
-<div data-role="popup" id="popupDodajWynik" data-theme="a" class="ui-corner-all" style="background-color: rgb(249, 249, 249);">
+<div data-role="popup" data-overlay-theme="b" id="popupDodajWynik" data-theme="a" class="ui-corner-all" style="background-color: rgb(249, 249, 249);">
     <div data-role="header" data-theme="b" style="border-color: white">
         <h1>Dodawanie wyniku</h1>
     </div>
@@ -119,3 +117,4 @@
 </div>
 <script  src="<?php echo $this->baseUrl('/js/setArmia.js'); ?>"></script>
 <script  src="<?php echo $this->baseUrl('/js/popupDodajWynik.js'); ?>"></script>
+<script src="<?php echo $this->baseUrl('/js/popupDetails2.js'); ?>"></script>
