@@ -109,7 +109,7 @@ class Application_Form_DodajWynik extends Zend_Form
                     'required' => false
                 )
                 );
-        
+        $this->misja->setRegisterInArrayValidator(false);
         $mustBeAData = new Zend_Validate_Date();
         $mustBeAData->setMessages(array(Zend_Validate_Date::FALSEFORMAT => 'Musi być datą yyyy-mm-dd',
                                         Zend_Validate_Date::INVALID_DATE => 'Musi być datą yyyy-mm-dd'));
