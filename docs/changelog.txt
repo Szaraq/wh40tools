@@ -1,1 +1,4 @@
 DodajWynik
+My_Validate_PotyczkaNotExistsInDatabase
+My_Functions
+WynikiController

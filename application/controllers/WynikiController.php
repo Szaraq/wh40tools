@@ -89,22 +89,22 @@ class WynikiController extends Zend_Controller_Action
         $potyczki = $Potyczka->fetchAll($Potyczka->select()
                 ->where('gracz1 = ?', $gracz->ksywa)
                 ->where('wynik1 > wynik2')
-                ->where('data > ?', $runda_min)
-                ->where('data < ?', $runda_max));
+                ->where('data >= ?', $runda_min)
+                ->where('data <= ?', $runda_max));
         $out += $potyczki->count() * 3;
         
         $potyczki = $Potyczka->fetchAll($Potyczka->select()
                 ->where('gracz2 = ?', $gracz->ksywa)
                 ->where('wynik1 < wynik2')
-                ->where('data > ?', $runda_min)
-                ->where('data < ?', $runda_max));
+                ->where('data >= ?', $runda_min)
+                ->where('data <= ?', $runda_max));
         $out += $potyczki->count() * 3;
         
         $potyczki = $Potyczka->fetchAll($Potyczka->select()
                 ->where('gracz1 = ? OR gracz2 = ?', $gracz->ksywa)
                 ->where('wynik1 = wynik2')
-                ->where('data > ?', $runda_min)
-                ->where('data < ?', $runda_max));
+                ->where('data >= ?', $runda_min)
+                ->where('data <= ?', $runda_max));
         $out += $potyczki->count();
         
         return $out;
@@ -126,7 +126,7 @@ class WynikiController extends Zend_Controller_Action
         foreach($gracze as $g) {
             $potyczki = $Potyczka->fetchAll($Potyczka->select()
                     ->where('gracz1 = ? OR gracz2 = ?', $g->ksywa)
-                    ->where('data > ?', $runda->data_od)
+                    ->where('data >= ?', $runda->data_od)
                     );
             $out[$g->ksywa] = $potyczki;
         }
