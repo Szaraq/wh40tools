@@ -16,8 +16,8 @@ class My_CookieHelper {
     private static $instance = false;
     private $cookie;
     private $request;
-    //const AGE = 31536000;   //1 rok w sekundach: 60*60*24*365
-    const AGE = 1000;
+    const AGE = 31536000;   //1 rok w sekundach: 60*60*24*365
+    //const AGE = 1000;
     
     private function __construct() {
         $this->cookie = new Zend_Http_Header_SetCookie();
@@ -36,9 +36,9 @@ class My_CookieHelper {
         Zend_Controller_Front::getInstance()->getResponse()->setRawHeader($this->cookie);
     }
     
-    public function hasCookie($name) {
-        $result = $this->getCookie($name);
-        return !$result=='';
+    public function hasCookie($name, $value = "") {
+		$result = $this->getCookie($name);
+		return !$result==$value;
     }
     
     public function getCookie($name) {

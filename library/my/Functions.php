@@ -59,14 +59,14 @@ class My_Functions {
         $Potyczka = new Application_Model_DbTable_Potyczka();
         if(is_null($runda->data_do)) {
             $potyczki = $Potyczka->fetchAll($Potyczka->select()
-                    ->where('data > ?', $runda->data_od)
+                    ->where('data >= ?', $runda->data_od)
                     ->order('data DESC')
                     ->order('id DESC')
                     );
         } else {
             $potyczki = $Potyczka->fetchAll($Potyczka->select()
-                    ->where('data > ?', $runda->data_od)
-                    ->where('data < ?', $runda->data_do)
+                    ->where('data >= ?', $runda->data_od)
+                    ->where('data <= ?', $runda->data_do)
                     ->order('data DESC')
                     ->order('id DESC')
                     );
@@ -77,8 +77,8 @@ class My_Functions {
     public static function getRundaForDate($date) {
         $Rundy = new Application_Model_DbTable_Rundy();
         $out = $Rundy->fetchRow($Rundy->select()
-                ->where('data_od < ?', $date)
-                ->where('data_do > ?', $date));
+                ->where('data_od <= ?', $date)
+                ->where('data_do >= ?', $date));
         if(!is_null($out)) { return $out; }
         return $Rundy->fetchRow('data_do IS NULL');
     }
@@ -90,8 +90,9 @@ class My_Functions {
     
     public static function existsRozpaPoprzedniaRunda() {
         $gracze = self::getGracze();
+        $url = new Zend_View_Helper_BaseUrl();
         foreach($gracze as $g) {
-            if(file_exists('upload/' . $g->ksywa . '2.html')) { return true; }
+            if(file_exists($url->baseUrl('/upload/' . $g->ksywa . '2.html'))) { return true; }
         }
         return false;
     }

@@ -27,14 +27,14 @@ class My_Validate_PotyczkaNotExistInDatabase extends Zend_Validate_Abstract {
             $potyczka = $Potyczka->fetchRow($Potyczka->select()
                     ->where('gracz1 = ? OR gracz2 = ?', $context['gracz1'])
                     ->where('gracz1 = ? OR gracz2 = ?', $context['gracz2'])
-                    ->where('data > ?', $runda->data_od)
+                    ->where('data >= ?', $runda->data_od)
                     );
         } else {
             $potyczka = $Potyczka->fetchRow($Potyczka->select()
                     ->where('gracz1 = ? OR gracz2 = ?', $context['gracz1'])
                     ->where('gracz1 = ? OR gracz2 = ?', $context['gracz2'])
-                    ->where('data > ?', $runda->data_od)
-                    ->where('data < ?', $runda->data_do)
+                    ->where('data >= ?', $runda->data_od)
+                    ->where('data <= ?', $runda->data_do)
                     );
         }
         
