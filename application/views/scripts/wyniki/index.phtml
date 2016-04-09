@@ -66,7 +66,7 @@
         <td style="text-align: right; <?php if($p->wynik1 > $p->wynik2) { echo 'font-weight: bold;'; } ?>"><?php echo $p->gracz1; ?></td>
         <td style="text-align: center; width: 100px; <?php if($p->wynik1 > $p->wynik2) { echo 'font-weight: bold;'; } ?>"><?php echo $p->wynik1; ?></td>
         <td style="text-align: center; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->wynik2; ?></td>
-        <td style="font-weight: bold; <?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->gracz2; ?></td>
+        <td style="<?php if($p->wynik2 > $p->wynik1) { echo 'font-weight: bold;'; } ?>"><?php echo $p->gracz2; ?></td>
         <td style="width: 70px;">
             <a details-to-show="<?php echo $p->id?>" href="#" class="details" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">szczegóły</a>
         </td>
