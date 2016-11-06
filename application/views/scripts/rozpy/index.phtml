@@ -29,4 +29,6 @@
     </tbody>
 </table>
 <hr />
-<?php echo $this->form;
+<input type="hidden" id="punkty" value="<?php echo My_Functions::getActualRunda()->punkty; ?>"/>
+<?php echo $this->form; ?>
+<script src="<?php echo $this->baseUrl('js/rozpaCheck.js') ?>"></script>
