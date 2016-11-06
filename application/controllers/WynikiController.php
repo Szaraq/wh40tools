@@ -13,6 +13,7 @@ class WynikiController extends Zend_Controller_Action
         $year = $this->getRequest()->getParam('year');
         if(is_null($year)) { $year = date('Y'); }
         $this->view->year = $year;
+        $this->view->gracze = My_Functions::getGracze();
         $this->view->form = new Application_Form_DodajWynik();
         $rundy = My_Functions::getRundyForYear($year);
         

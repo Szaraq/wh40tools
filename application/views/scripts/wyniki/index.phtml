@@ -5,6 +5,10 @@
     $count = sizeof($this->potyczki);
     $miejsca_color = array( "#fff9e5", "#f2f2f2", "#f8ecec" );
     $color = -1;
+    
+    foreach($this->gracze as $gracz) {
+        echo '<input type="hidden" id="armia_' . $gracz->ksywa .'" value="' . $gracz->armia . '"/>';
+    }
 ?>
 
 <script src="<?php echo $this->baseUrl('/js/popupDetails.js'); ?>"></script>

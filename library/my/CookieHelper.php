@@ -31,14 +31,14 @@ class My_CookieHelper {
         return self::$instance;
     }
     
-    public function setCookie($name, $value) {
-        $this->cookie->setName($name)->setValue($value)->setMaxAge(self::AGE);
+    public function setCookie($name, $value, $age = self::AGE) {
+        $this->cookie->setName($name)->setValue($value)->setMaxAge($age);
         Zend_Controller_Front::getInstance()->getResponse()->setRawHeader($this->cookie);
     }
     
-    public function hasCookie($name, $value = "") {
-		$result = $this->getCookie($name);
-		return !$result==$value;
+    public function hasCookie($name) {
+        $result = $this->getCookie($name);
+        return !$result == "";
     }
     
     public function getCookie($name) {

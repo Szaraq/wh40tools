@@ -83,6 +83,12 @@ class My_Functions {
         return $Rundy->fetchRow('data_do IS NULL');
     }
     
+    public static function getActualRunda() {
+        $Rundy = new Application_Model_DbTable_Rundy();
+        return $Rundy->fetchRow($Rundy->select()
+                ->where('data_do IS NULL'));
+    }
+    
     public static function maxNitems($array, $n = 3){
         asort($array);
         return array_slice(array_reverse($array, true),0,$n, true);
@@ -95,5 +101,60 @@ class My_Functions {
             if(file_exists($url->baseUrl('/upload/' . $g->ksywa . '2.html'))) { return true; }
         }
         return false;
+    }
+    
+    public static function addNowaRunda($date, $punkty) {
+        $Rundy = new Application_Model_DbTable_Rundy();
+        $Rundy->getAdapter()->beginTransaction();
+        
+        $actual = self::getActualRunda();
+        $actual->data_do = date('Y-m-d', strtotime('-1 day', strtotime($date)));
+        $actual->save();
+        
+        $data = array(
+            'data_od' => $date,
+            'data_do' => null,
+            'punkty' => $punkty
+        );
+        $Rundy->createRow($data)->save();
+        
+        try {
+            $Rundy->getAdapter()->commit();
+        } catch (Exception $ex) {
+            $Rundy->getAdapter()->rollBack();
+        }
+    }
+    
+    /**
+     * 
+     * @param type $gracz
+     * @param type $wersja 1 - nowa; 2 - stara
+     */
+    public static function usunPlik($gracz, $wersja, $ext) {
+        $numerWersji = '';
+        if($wersja == 2) { $numerWersji = '2'; }
+        $path = Zend_Controller_Front::getInstance()->getBaseUrl() . '/upload/' .
+                $gracz .
+                $numerWersji .
+                '.' .
+                $ext;
+        
+        if(file_exists($path)) { unlink($path); }
+    }
+    
+    public static function usunRozpy($naStale) {
+        $gracze = self::getGracze();
+        foreach($gracze as $gracz) {
+            $ksywa = $gracz->ksywa;
+            self::usunPlik($ksywa, 2, 'html');
+            self::usunPlik($ksywa, 1, 'rosz');
+            if($naStale) {
+                self::usunPlik($ksywa, 1, 'rosz');
+            } else {
+                $pathFrom = Zend_Controller_Front::getInstance()->getBaseUrl() . '/upload/' . $ksywa . '.html';
+                $pathTo = Zend_Controller_Front::getInstance()->getBaseUrl() . '/upload/' . $ksywa . '2.html';
+                rename($pathFrom, $pathTo);
+            }
+        }
     }
 }

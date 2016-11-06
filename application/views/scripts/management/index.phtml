@@ -1,0 +1,21 @@
+
+
+<?php 
+    $naglowki = array('Dodawanie rundy', 'Usuwanie rozp', 'Ustawianie armii');
+    $counter = 0;
+
+    foreach($this->forms as $form) {
+        echo '<h2>' . $naglowki[$counter++] . '</h2>';
+        echo $form;
+        if(!($counter == sizeof($naglowki))) { echo '<hr style="margin-top: 10px" />'; }
+    }
+    ?>
+
+<script lang="javascript">
+$( document ).ready(function() {
+    $( "input[type='submit']" ).each(function(index) {
+        $($( this ).parent().get( 0 )).addClass('ui-icon-check ui-btn-icon-left');
+    });
+});
+
+</script>

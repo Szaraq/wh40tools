@@ -30,6 +30,8 @@ class RozpyController extends Zend_Controller_Action
                 $upload = new Zend_File_Transfer_Adapter_Http();
                 $info = $upload->getFileInfo();
                 $extension = pathinfo($info['rozpa']['name'], PATHINFO_EXTENSION);
+                $path = $this->view->baseUrl('/upload/' . $form->gracz->getValue() . '.' . $extension);
+                if(file_exists($path)) { unlink($path); }
                 $upload->addFilter('Rename', $this->view->baseUrl('/upload/' . $form->gracz->getValue() . '.' . $extension, true));
                 $upload->receive();
                 if(!My_CookieHelper::getInstance()->hasCookie('ksywa')) { My_CookieHelper::getInstance()->setCookie('ksywa', $form->gracz->getValue()); }
